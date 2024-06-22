@@ -1,6 +1,6 @@
-# Simulasi Pinjaman
+# Calculator
 
-Ini adalah aplikasi web sederhana untuk mensimulasikan pinjaman. Aplikasi ini memungkinkan pengguna untuk memasukkan jumlah pinjaman, jangka waktu, suku bunga, dan tipe perhitungan bunga, kemudian menghitung angsuran bulanan dan menyajikan tabel angsuran yang dapat diekspor ke PDF.
+Ini adalah aplikasi web sederhana untuk perhitungan sederhana. Aplikasi ini memungkinkan pengguna untuk memasukkan jumlah pinjaman, jangka waktu, suku bunga, dan tipe perhitungan bunga, kemudian menghitung angsuran bulanan dan menyajikan tabel angsuran yang dapat diekspor ke PDF.
 
 ## Fitur
 
