@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Simulasi Pinjaman</title>
+    <style>
+        th, td {
+            text-align: right;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .table tbody tr:last-child {
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Simulasi Pinjaman</h2>
+    <form id="loanForm">
+        <div class="form-group">
+            <label for="loanAmount">Jumlah Pinjaman*</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp</span>
+                </div>
+                <input type="text" class="form-control" id="loanAmount" placeholder="Masukkan jumlah pinjaman" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="startMonth">Mulai Meminjam - Bulan</label>
+            <select class="form-control" id="startMonth" required>
+                <option value="" disabled selected>Pilih Bulan</option>
+                <option value="1">Januari</option>
+                <option value="2">Februari</option>
+                <option value="3">Maret</option>
+                <option value="4">April</option>
+                <option value="5">Mei</option>
+                <option value="6">Juni</option>
+                <option value="7">Juli</option>
+                <option value="8">Agustus</option>
+                <option value="9">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="startYear">Mulai Meminjam - Tahun</label>
+            <select class="form-control" id="startYear" required>
+                <option value="" disabled selected>Pilih Tahun</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <!-- Add more years as needed -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="interestType">Perhitungan Bunga</label>
+            <select class="form-control" id="interestType" required>
+                <option value="" disabled selected>Pilih Tipe Bunga</option>
+                <option value="anuitas">Anuitas</option>
+                <option value="flat">Flat</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="loanDuration">Lama Pinjaman (bulan)*</label>
+            <select class="form-control" id="loanDuration" required>
+                <option value="" disabled selected>Pilih Jangka Waktu</option>
+                <option value="12">12 bulan</option>
+                <option value="24">24 bulan</option>
+                <option value="36">36 bulan</option>
+                <option value="48">48 bulan</option>
+                <option value="60">60 bulan</option>
+                <option value="72">72 bulan</option>
+                <option value="84">84 bulan</option>
+                <option value="96">96 bulan</option>
+                <option value="108">108 bulan</option>
+                <option value="120">120 bulan</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="annualInterest">Suku Bunga per Tahun*</label>
+            <input type="number" class="form-control" id="annualInterest" placeholder="Masukkan suku bunga tahunan" required>
+        </div>
+        <button type="button" class="btn btn-primary" id="calculateBtn" onclick="calculateLoan()" disabled>Hitung</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
+        <button type="button" class="btn btn-success" id="exportBtn" onclick="exportToPDF()" disabled>Ekspor ke PDF</button>
+    </form>
+    <div id="result" class="mt-4"></div>
+</div>
+
+<!-- Add jsPDF and jsPDF-AutoTable libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+document.getElementById('loanAmount').addEventListener('input', formatInput);
+document.querySelectorAll('#loanForm input, #loanForm select').forEach(element => {
+    element.addEventListener('input', validateForm);
+    element.addEventListener('change', validateForm);
+});
+
+function formatInput(e) {
+    let value = e.target.value.replace(/\D/g, '').replace(/^0+/, ''); // Remove non-digits and leading zeros
+    let formatted = '';
+    while (value.length > 3) {
+        let part = value.slice(-3);
+        value = value.slice(0, -3);
+        formatted = '.' + part + formatted;
+    }
+    formatted = value + formatted;
+    e.target.value = formatted;
+}
+
+function validateForm() {
+    const loanAmount = document.getElementById('loanAmount').value;
+    const startMonth = document.getElementById('startMonth').value;
+    const startYear = document.getElementById('startYear').value;
+    const interestType = document.getElementById('interestType').value;
+    const loanDuration = document.getElementById('loanDuration').value;
+    const annualInterest = document.getElementById('annualInterest').value;
+
+    const isFormValid = loanAmount && startMonth && startYear && interestType && loanDuration && annualInterest;
+
+    document.getElementById('calculateBtn').disabled = !isFormValid;
+}
+
+let loanResult = []; // Variable to store loan calculation result
+let monthlyPayment = 0;
+let loanAmount = 0;
+let loanDuration = 0;
+let annualInterest = 0;
+let interestType = '';
+
+function calculateLoan() {
+    loanAmount = parseFloat(document.getElementById('loanAmount').value.replace(/\./g, ''));
+    loanDuration = parseInt(document.getElementById('loanDuration').value);
+    annualInterest = parseFloat(document.getElementById('annualInterest').value);
+    interestType = document.getElementById('interestType').value;
+    const startMonth = parseInt(document.getElementById('startMonth').value) - 1;
+    const startYear = parseInt(document.getElementById('startYear').value);
+
+    const monthlyInterestRate = (annualInterest / 100) / 12;
+    let balance = loanAmount;
+    let totalInterest = 0;
+    let totalPrincipal = 0;
+    let totalPayment = 0;
+
+    loanResult = []; // Clear previous loan result
+
+    let html = `<table class="table">
+                    <thead>
+                        <tr>
+                            <th>Periode</th>
+                            <th>Angsuran Bunga</th>
+                            <th>Angsuran Pokok</th>
+                            <th>Total Angsuran</th>
+                            <th>Sisa Pinjaman</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+    // Bulan pertama tanpa pembayaran
+    html += `<tr>
+                <td>${new Date(startYear, startMonth, 1).toLocaleString('id-ID', { month: 'long', year: 'numeric' })}</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>${Math.round(balance).toLocaleString('id-ID')}</td>
+            </tr>`;
+    loanResult.push(['-', '0', '0', '0', Math.round(balance).toLocaleString('id-ID')]);
+
+    // Loop untuk pembayaran bulanan
+    for (let i = 1; i <= loanDuration; i++) {
+        let interestPayment = 0;
+        let principalPayment = 0;
+
+        if (interestType === 'flat') {
+            interestPayment = loanAmount * (annualInterest / 100) / 12;
+            principalPayment = loanAmount / loanDuration;
+        } else if (interestType === 'anuitas') {
+            monthlyPayment = loanAmount * monthlyInterestRate / (1 - (Math.pow(1/(1 + monthlyInterestRate), loanDuration)));
+            interestPayment = balance * monthlyInterestRate;
+            principalPayment = monthlyPayment - interestPayment;
+        }
+
+        const roundedMonthly = Math.round(interestPayment + principalPayment);
+        balance -= principalPayment;
+
+        totalInterest += interestPayment;
+        totalPrincipal += principalPayment;
+        totalPayment += roundedMonthly;
+
+        const paymentDate = new Date(startYear, startMonth + i, 1);
+        const period = paymentDate.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
+        const roundedInterest = Math.round(interestPayment).toLocaleString('id-ID');
+        const roundedPrincipal = Math.round(principalPayment).toLocaleString('id-ID');
+        const roundedBalance = Math.round(balance).toLocaleString('id-ID');
+
+        html += `<tr>
+                    <td>${period}</td>
+                    <td>${roundedInterest}</td>
+                    <td>${roundedPrincipal}</td>
+                    <td>${roundedMonthly.toLocaleString('id-ID')}</td>
+                    <td>${roundedBalance}</td>
+                </tr>`;
+        loanResult.push([period, roundedInterest, roundedPrincipal, roundedMonthly.toLocaleString('id-ID'), roundedBalance]);
+    }
+
+    html += `<tr>
+                <th>Total</th>
+                <th>${Math.round(totalInterest).toLocaleString('id-ID')}</th>
+                <th>${Math.round(totalPrincipal).toLocaleString('id-ID')}</th>
+                <th>${Math.round(totalPayment).toLocaleString('id-ID')}</th>
+                <th>-</th>
+            </tr>`;
+    loanResult.push(['Total', Math.round(totalInterest).toLocaleString('id-ID'), Math.round(totalPrincipal).toLocaleString('id-ID'), Math.round(totalPayment).toLocaleString('id-ID'), '-']);
+    html += '</tbody></table>';
+    document.getElementById('result').innerHTML = html;
+
+    // Enable the export button
+    document.getElementById('exportBtn').disabled = false;
+}
+
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFontSize(10); // Set font size to 10
+    doc.text('Simulasi Pinjaman', 14, 16);
+
+    doc.autoTable({
+        body: [
+            ['Angsuran Cicilan per Bulan (Rp)', `${Math.round(monthlyPayment).toLocaleString('id-ID')}`],
+            ['Nominal Pinjaman (Rp)', `${loanAmount.toLocaleString('id-ID')}`],
+            ['Jangka Waktu (Bulan)', `${loanDuration}`],
+            ['Suku Bunga per Tahun (%)', `${annualInterest}`],
+            ['Tipe Bunga yang Digunakan', `${interestType.charAt(0).toUpperCase() + interestType.slice(1)}`],
+        ],
+        startY: 20,
+        styles: { fontSize: 8 } // Set font size for table
+    });
+
+    doc.text('Tabel Angsuran', 14, 70);
+
+    doc.autoTable({
+        head: [['Periode', 'Angsuran Bunga', 'Angsuran Pokok', 'Total Angsuran', 'Sisa Pinjaman']],
+        body: loanResult,
+        startY: 75,
+        styles: { fontSize: 8 } // Set font size for table
+    });
+
+    doc.save('simulasi_pinjaman.pdf');
+}
+
+document.getElementById('loanForm').onreset = function() {
+    document.getElementById('result').innerHTML = '';
+    loanResult = [];
+    validateForm();
+    document.getElementById('exportBtn').disabled = true; // Disable the export button on reset
+};
+</script>
+</body>
+</html>
