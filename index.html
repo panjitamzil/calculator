@@ -351,8 +351,8 @@ function calculateAge() {
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     let m = today.getMonth() - birthDate.getMonth();
-    m = 11; // ini harus dihapus
-    console.log("Month", m);
+    // m = 11; // ini harus dihapus
+    // console.log("Month", m);
 
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
