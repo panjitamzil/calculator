@@ -20,9 +20,222 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h2>Simulasi Pinjaman</h2>
+    <h2>Simulasi Kredit Pensiun</h2>
+    <br>
     <form id="loanForm">
-        <div class="form-group">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-label">Sumber Dana</label>
+            <label class="col-sm-4 col-form-label form-label">: KOPERASI SAB</label>
+
+            <label for="marketing-name" class="col-sm-2 col-form-label form-label">Marketing</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="marketing-name" placeholder="Marketing name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-label">Jenis Product</label>
+            <label class="col-sm-4 col-form-label form-label">: PLATINUM</label>
+
+            <label for="team-leader" class="col-sm-2 col-form-label form-label">Team Leader</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="team-leader" placeholder="Team Leader name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-label">Bunga</label>
+            <label class="col-sm-4 col-form-label form-label">: NORMAL</label>
+
+            <label for="area-location" class="col-sm-2 col-form-label form-label">Area</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="area-location" placeholder="Area" required>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label for="nopen" class="col-sm-2 col-form-label form-label">NOPEN</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nopen" placeholder="NOPEN" required>
+            </div>
+
+            <label for="tanggal-sk" class="col-sm-2 col-form-label form-label">Tanggal SK</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="tanggal-sk" placeholder="Tanggal SK" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="nomor-sk" class="col-sm-2 col-form-label form-label">NO SK</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nomor-sk" placeholder="Nomor SK" required>
+            </div>
+
+            <label for="penerbit-sk" class="col-sm-2 col-form-label form-label">Penerbit SK</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="penerbit-sk" placeholder="Penerbit SK" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="nama-sk" class="col-sm-2 col-form-label form-label">Nama SK</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nama-sk" placeholder="Nama SK" required>
+            </div>
+
+            <label class="col-sm-2 col-form-label form-label">Dapen</label>
+            <label class="col-sm-4 col-form-label form-label">: TASPEN</label>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label for="nama-debitur" class="col-sm-2 col-form-label form-label">Nama Debitur</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nama-debitur" placeholder="Nama Debitur" required>
+            </div>
+
+            <label for="tanggal-lahir" class="col-sm-2 col-form-label form-label">Tanggal Lahir e-KTP</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="tanggal-lahir" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-label">Kantor Bayar Asal</label>
+            <label class="col-sm-4 col-form-label form-label">: PT. POS INDONESIA</label>
+
+
+            <label for="usia" class="col-sm-2 col-form-label form-label">Usia saat ini</label>
+            <label id="usia" class="col-sm-4 col-form-label form-label">: 0 Tahun</label>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-label">Kantor Bayar Tujuan</label>
+            <label class="col-sm-4 col-form-label form-label">: PT. POS INDONESIA</label>
+
+            <label class="col-sm-2 col-form-label form-label" for="gaji">Gaji</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp</span>
+                </div>
+                <input type="text" class="form-control" id="gaji" placeholder="Masukkan gaji" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-label">Status Pembiayaan</label>
+            <label class="col-sm-4 col-form-label form-label">: MUTASI & TAKE OVER</label>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label for="maksimal-tenor" class="col-sm-2 col-form-label form-label">Maksimal Tenor</label>
+            <label id="maksimal-tenor"class="col-sm-4 col-form-label form-label">: 0 Bulan</label>
+
+
+            <label for="max-plafon" class="col-sm-2 col-form-label form-label">Maksimal Plafon</label>
+            <label id="max-plafon" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+        
+            <label for="tenor" class="col-sm-2 col-form-label form-label">Tenor</label>
+            <label id="tenor"class="col-sm-4 col-form-label form-label">: 72</label>
+
+
+            <label for="plafon-pengajuan" class="col-sm-2 col-form-label form-label">Plafon Pengajuan</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp</span>
+                </div>
+                <input type="text" class="form-control" id="plafon-pengajuan" placeholder="Masukkan Plafon Pengajuan" required>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label form-label">Bunga </label>
+            <label class="col-sm-4 col-form-label form-label">16.00% FLAT ANUITAS PERTAHUN</label>
+            <label class="col-sm-4 col-form-label form-label">1.333% FLAT ANUITAS PERBULAN</label>
+
+
+            <label class="col-sm-4 col-form-label form-label" for="tata-laksana">Tata Laksana</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <input type="text" class="form-control" id="tata-laksana" placeholder="Masukkan Tata Laksana" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            <label id="result-tata-laksana" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+
+            <label class="col-sm-4 col-form-label form-label" for="provinsi">Provinsi</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <input type="text" class="form-control" id="provinsi" placeholder="Masukkan Provinsi" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            <label id="result-provinsi" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+
+            <label class="col-sm-4 col-form-label form-label" for="flagging">Biaya Flagging</label>
+            <label class="col-sm-4 col-form-label form-label"></label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp</span>
+                </div>
+                <input type="text" class="form-control" id="flagging" placeholder="Masukkan Biaya Flagging" required>
+            </div>
+
+            <label class="col-sm-4 col-form-label form-label" for="asuransi">Asuransi</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <input type="text" class="form-control" id="asuransi" placeholder="Masukkan Asuransi" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            <label id="result-asuransi" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+
+            <label class="col-sm-4 col-form-label form-label" for="terima-bersih">Terima Bersih</label>
+            <label class="col-sm-4 col-form-label form-label" for="terima-bersih"></label>
+            <label id="terima-bersih" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label form-label" for="blokir-angsuran">Blokir Angsuran</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <input type="text" class="form-control" id="blokir-angsuran" placeholder="Masukkan Blokir Angsuran" required>
+            </div>
+            <label id="result-blokir-angsuran" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+
+            <label class="col-sm-4 col-form-label form-label" for="takeover">Takeover</label>
+            <label class="col-sm-4 col-form-label form-label" for="takeover"></label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp</span>
+                </div>
+                <input type="text" class="form-control" id="takeover" placeholder="Masukkan Takeover" required>
+            </div>
+
+            <label class="col-sm-4 col-form-label form-label" for="final-amount">Sisa Terima Bersih</label>
+            <label class="col-sm-4 col-form-label form-label" for="final-amount"></label>
+            <label id="final-amount" class="col-sm-4 col-form-label form-label">: Rp 0</label>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label class="col-sm-6 col-form-label form-label" for="result-angsuran">Angsuran</label>
+            <label id="result-angsuran" class="col-sm-6 col-form-label form-label">: Rp 0</label>
+
+            <label class="col-sm-6 col-form-label form-label" for="result-admin-angsuran">Admin Angsuran</label>
+            <label id="result-admin-angsuran" class="col-sm-6 col-form-label form-label">: Rp 0</label>
+
+            <label class="col-sm-6 col-form-label form-label" for="total-angsuran">Total Angsuran</label>
+            <label id="total-angsuran" class="col-sm-6 col-form-label form-label">: Rp 0</label>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label class="col-sm-6 col-form-label form-label" for="tanggal-lunas">Lunas</label>
+            <label id="tanggal-lunas" class="col-sm-6 col-form-label form-label">: </label>
+
+            <label class="col-sm-6 col-form-label form-label" for="analisa-perhitungan">Analisa Perhitungan</label>
+            <label id="analisa-perhitungan" class="col-sm-6 col-form-label form-label">: OK</label>
+
+            <label class="col-sm-6 col-form-label form-label" for="ratio">Ratio</label>
+            <label id="ratio" class="col-sm-6 col-form-label form-label">: 0 %</label>
+
+            <label class="col-sm-6 col-form-label form-label" for="sisa-gaji-per-bulan">Sisa Gaji per Bulan</label>
+            <label id="sisa-gaji-per-bulan" class="col-sm-6 col-form-label form-label">: Rp 0</label>
+        </div>
+
+        
+
+        <!-- <div class="form-group">
             <label for="loanAmount">Jumlah Pinjaman*</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -55,7 +268,6 @@
                 <option value="" disabled selected>Pilih Tahun</option>
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
-                <!-- Add more years as needed -->
             </select>
         </div>
         <div class="form-group">
@@ -88,7 +300,7 @@
         </div>
         <button type="button" class="btn btn-primary" id="calculateBtn" onclick="calculateLoan()" disabled>Hitung</button>
         <button type="reset" class="btn btn-warning">Reset</button>
-        <button type="button" class="btn btn-success" id="exportBtn" onclick="exportToPDF()" disabled>Ekspor ke PDF</button>
+        <button type="button" class="btn btn-success" id="exportBtn" onclick="exportToPDF()" disabled>Ekspor ke PDF</button> -->
     </form>
     <div id="result" class="mt-4"></div>
 </div>
@@ -98,11 +310,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-document.getElementById('loanAmount').addEventListener('input', formatInput);
-document.querySelectorAll('#loanForm input, #loanForm select').forEach(element => {
-    element.addEventListener('input', validateForm);
-    element.addEventListener('change', validateForm);
-});
+// document.getElementById('loanAmount').addEventListener('input', formatInput);
+document.getElementById('gaji').addEventListener('input', formatInput);
+document.getElementById('flagging').addEventListener('input', formatInput);
+document.getElementById('takeover').addEventListener('input', formatInput);
+document.getElementById('tanggal-lahir').addEventListener('change', calculateAge);
+document.getElementById('gaji').addEventListener('input', calculateMaxPlafon);
+document.getElementById('plafon-pengajuan').addEventListener('input', formatInput);
+document.getElementById('plafon-pengajuan').addEventListener('input', calculateAdminAngsuran);
+document.getElementById('plafon-pengajuan').addEventListener('input', calculateAngsuran);
+document.getElementById('plafon-pengajuan').addEventListener('input', calculateTotalAngsuran);
+document.getElementById('plafon-pengajuan').addEventListener('input', calculateTanggalLunas);
+document.getElementById('tata-laksana').addEventListener('input', calculateSisaGajiPerbulan);
+document.getElementById('tata-laksana').addEventListener('input', calculateRatio);
+document.getElementById('tata-laksana').addEventListener('input', calculateTataLaksana);
+document.getElementById('provinsi').addEventListener('input', calculateProvinsi);
+document.getElementById('asuransi').addEventListener('input', calculateAsuransi);
+document.getElementById('asuransi').addEventListener('input', calculateTerimaBersih);
+document.getElementById('blokir-angsuran').addEventListener('input', calculateBlokirAngsuran);
+document.getElementById('takeover').addEventListener('input', calculateFinalTerimaBersih);
+// document.querySelectorAll('#loanForm input, #loanForm select').forEach(element => {
+//     element.addEventListener('input', validateForm);
+//     element.addEventListener('change', validateForm);
+// });
 
 function formatInput(e) {
     let value = e.target.value.replace(/\D/g, '').replace(/^0+/, ''); // Remove non-digits and leading zeros
@@ -114,6 +344,199 @@ function formatInput(e) {
     }
     formatted = value + formatted;
     e.target.value = formatted;
+}
+
+function calculateAge() {
+    const birthDate = new Date(document.getElementById('tanggal-lahir').value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    m = 11; // ini harus dihapus
+    console.log("Month", m);
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    if (age < 17 || age >= 80 ) {
+        document.getElementById('usia').textContent = `: 0 Tahun`;
+    } else {
+        let maxTenor = 9 * 12 - (m + 1);
+
+
+        document.getElementById('maksimal-tenor').textContent = `: ${maxTenor} Bulan`;
+        document.getElementById('usia').textContent = `: ${age} Tahun`;
+    }
+}
+
+function calculateMaxPlafon() {
+    const flatAnuitasPerYear = 16;
+    const flatAnuitasPerMonth = (flatAnuitasPerYear/12) / 100;
+    const tenor = 72;
+
+    const salary = parseInt(document.getElementById('gaji').value.replace(/\./g, ''), 10);
+    const maxAngsuranEPOT = salary * (90/100);
+    const maxAngsuran = maxAngsuranEPOT - (0.4/100) * 37500000;
+    const maxPlafon = Math.floor(maxAngsuran / (tenor * flatAnuitasPerMonth + 1) * tenor / 10000 ) * 10000;
+    const flooredMaxPlafon = Math.floor(maxPlafon / 100000) * 100000;
+    const formattedMaxPlafon = flooredMaxPlafon.toLocaleString('id-ID');
+
+    document.getElementById('max-plafon').textContent = `: Rp ${formattedMaxPlafon}`;
+}
+
+function calculateTataLaksana() {
+    const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
+    const tataLaksana = parseFloat(document.getElementById('tata-laksana').value.replace(/\./g, '').replace(',', '.'));
+    const result = (tataLaksana / 100) * plafonPengajuan + 500000
+    const formattedTataLaksana = result.toLocaleString('id-ID');
+
+    document.getElementById('result-tata-laksana').textContent = `: Rp ${formattedTataLaksana}`;
+}
+
+function calculateProvinsi() {
+    const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
+    const provinsi = parseFloat(document.getElementById('provinsi').value.replace(/\./g, '').replace(',', '.'));
+    const result = (provinsi / 100) * plafonPengajuan
+    const formattedProvinsi = result.toLocaleString('id-ID');
+
+    document.getElementById('result-provinsi').textContent = `: Rp ${formattedProvinsi}`;
+}
+
+function calculateAsuransi() {
+    const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
+    const asuransi = parseFloat(document.getElementById('asuransi').value.replace(/\./g, '').replace(',', '.'));
+    const result = (asuransi / 100) * plafonPengajuan
+    const formattedAsuransi = result.toLocaleString('id-ID');
+
+    document.getElementById('result-asuransi').textContent = `: Rp ${formattedAsuransi}`;
+}
+
+function calculateTerimaBersih() {
+    const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
+    
+    const resultTataLaksana = document.getElementById('result-tata-laksana').textContent;
+    const cleanedTataLaksana = resultTataLaksana.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const tataLaksanaValue = parseFloat(cleanedTataLaksana);
+    
+    const resultProvinsi = document.getElementById('result-provinsi').textContent;
+    const cleanedProvinsi = resultProvinsi.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const provinsiValue = parseFloat(cleanedProvinsi);
+
+    const resultAsuransi = document.getElementById('result-asuransi').textContent;
+    const cleanedAsuransi = resultAsuransi.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const asuransiValue = parseFloat(cleanedAsuransi);
+
+    const flagging = parseInt(document.getElementById('flagging').value.replace(/\./g, ''), 10);
+
+    const result = plafonPengajuan-tataLaksanaValue-provinsiValue-asuransiValue-flagging;
+    const formattedResult = result.toLocaleString('id-ID');
+
+    document.getElementById('terima-bersih').textContent = `: Rp ${formattedResult}`;
+}
+
+function calculateBlokirAngsuran() {
+    const totalAngsuran = document.getElementById('total-angsuran').textContent;
+    const cleanedTotalAngsuran = totalAngsuran.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const totalAnguranValue = parseFloat(cleanedTotalAngsuran);
+
+    const flagging = parseInt(document.getElementById('blokir-angsuran').value.replace(/\./g, ''), 10);
+
+    const result = totalAnguranValue * flagging
+    const formattedBlokirAngsuran = result.toLocaleString('id-ID');
+
+    document.getElementById('result-blokir-angsuran').textContent = `: Rp ${formattedBlokirAngsuran}`;
+}
+
+function calculateFinalTerimaBersih() {
+    const terimaBersih = document.getElementById('terima-bersih').textContent;
+    const cleanedTerimaBersih = terimaBersih.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const terimaBersihValue = parseFloat(cleanedTerimaBersih);
+
+    let takeover = parseInt(document.getElementById('takeover').value.replace(/\./g, ''), 10);
+    if (isNaN(takeover)) {
+        takeover = 0
+    }
+
+    const blokirAngsuran = document.getElementById('result-blokir-angsuran').textContent;
+    const cleanedBlokirAngsuran = blokirAngsuran.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const blokirAngsuranValue = parseFloat(cleanedBlokirAngsuran);
+
+    const result = terimaBersihValue - takeover - blokirAngsuranValue
+    const formattedFinalTerimaBersih = result.toLocaleString('id-ID');
+
+    document.getElementById('final-amount').textContent = `: Rp ${formattedFinalTerimaBersih}`;
+}
+
+function calculateAdminAngsuran() {
+    const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
+    const adminAngsuran = plafonPengajuan * (0.4/100);
+    const formattedAdminAngsuran = adminAngsuran.toLocaleString('id-ID');
+
+    document.getElementById('result-admin-angsuran').textContent = `: Rp ${formattedAdminAngsuran}`;
+}
+
+function calculateAngsuran() {
+    const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
+    const flatAnuitasPerYear = 16;
+    const flatAnuitasPerMonth = (flatAnuitasPerYear/12) / 100;
+    const tenor = 72;
+
+    const result = Math.round((plafonPengajuan / tenor) + (plafonPengajuan * flatAnuitasPerMonth));
+    const formattedAngsuran = result.toLocaleString('id-ID');
+
+    document.getElementById('result-angsuran').textContent = `: Rp ${formattedAngsuran}`;
+}
+
+function calculateTotalAngsuran() {
+    const resultAngsuran = document.getElementById('result-angsuran').textContent;
+    const cleanedAngsuran = resultAngsuran.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const anguranValue = parseFloat(cleanedAngsuran);
+
+    const resultAdminAngsuran = document.getElementById('result-admin-angsuran').textContent;
+    const cleanedAdminAngsuran = resultAdminAngsuran.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const adminAngsuranValue = parseFloat(cleanedAdminAngsuran);
+
+    const result =anguranValue + adminAngsuranValue;
+    const formattedTotalAngsuran = result.toLocaleString('id-ID');
+
+    document.getElementById('total-angsuran').textContent = `: Rp ${formattedTotalAngsuran}`;
+}
+
+function calculateTanggalLunas() {
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setMonth(startDate.getMonth() + 72);
+
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    const formattedDate = endDate.toLocaleDateString('id-ID', options);
+
+    document.getElementById('tanggal-lunas').textContent = `: ${formattedDate}`;
+}
+
+function calculateSisaGajiPerbulan() {
+    const salary = parseInt(document.getElementById('gaji').value.replace(/\./g, ''), 10);
+    
+    const resultTotalAngsuran = document.getElementById('total-angsuran').textContent;
+    const cleanedTotalAngsuran = resultTotalAngsuran.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const totalAnguranValue = parseFloat(cleanedTotalAngsuran);
+
+    const result =salary - totalAnguranValue;
+    const formattedSisaGajiPerBulan = result.toLocaleString('id-ID');
+
+    document.getElementById('sisa-gaji-per-bulan').textContent = `: Rp ${formattedSisaGajiPerBulan}`;
+}
+
+function calculateRatio() {
+    const salary = parseInt(document.getElementById('gaji').value.replace(/\./g, ''), 10);
+    
+    const resultSisaGajiPerbulan = document.getElementById('sisa-gaji-per-bulan').textContent;
+    const cleanedSisaGajiPerBulan = resultSisaGajiPerbulan.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const sisaGajiPerBulanValue = parseFloat(cleanedSisaGajiPerBulan);
+
+    const result = (1 - (sisaGajiPerBulanValue/salary)) * 100;
+    const formattedResult = result.toFixed(2) + '%'; 
+
+    document.getElementById('ratio').textContent = `: ${formattedResult}`;
 }
 
 function validateForm() {
