@@ -239,8 +239,8 @@
         </div>
 
         
-
-        <!-- <div class="form-group">
+<!-- 
+        <div class="form-group">
             <label for="loanAmount">Jumlah Pinjaman*</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -302,10 +302,10 @@
         <div class="form-group">
             <label for="annualInterest">Suku Bunga per Tahun*</label>
             <input type="number" class="form-control" id="annualInterest" placeholder="Masukkan suku bunga tahunan" required>
-        </div>
+        </div> -->
         <button type="button" class="btn btn-primary" id="calculateBtn" onclick="calculateLoan()" disabled>Hitung</button>
         <button type="reset" class="btn btn-warning">Reset</button>
-        <button type="button" class="btn btn-success" id="exportBtn" onclick="exportToPDF()" disabled>Ekspor ke PDF</button> -->
+        <button type="button" class="btn btn-success" id="exportBtn" onclick="exportToPDF()" disabled>Ekspor ke PDF</button>
     </form>
     <div id="result" class="mt-4"></div>
 </div>
@@ -316,7 +316,6 @@
 
 <script>
 // document.getElementById('loanAmount').addEventListener('input', formatInput);
-
 document.getElementById('gaji').addEventListener('input', formatInput);
 document.getElementById('flagging').addEventListener('input', formatInput);
 document.getElementById('takeover').addEventListener('input', formatInput);
@@ -336,10 +335,10 @@ document.getElementById('asuransi').addEventListener('input', calculateAsuransi)
 document.getElementById('asuransi').addEventListener('input', calculateTerimaBersih);
 document.getElementById('blokir-angsuran').addEventListener('input', calculateBlokirAngsuran);
 document.getElementById('takeover').addEventListener('input', calculateFinalTerimaBersih);
-// document.querySelectorAll('#loanForm input, #loanForm select').forEach(element => {
-//     element.addEventListener('input', validateForm);
-//     element.addEventListener('change', validateForm);
-// });
+document.querySelectorAll('#loanForm input, #loanForm select').forEach(element => {
+    element.addEventListener('input', validateForm);
+    element.addEventListener('change', validateForm);
+});
 
 function formatInput(e) {
     let value = e.target.value.replace(/\D/g, '').replace(/^0+/, ''); // Remove non-digits and leading zeros
@@ -557,14 +556,19 @@ function calculateRatio() {
 }
 
 function validateForm() {
-    const loanAmount = document.getElementById('loanAmount').value;
-    const startMonth = document.getElementById('startMonth').value;
-    const startYear = document.getElementById('startYear').value;
-    const interestType = document.getElementById('interestType').value;
-    const loanDuration = document.getElementById('loanDuration').value;
-    const annualInterest = document.getElementById('annualInterest').value;
+    const terimaBersihValue = document.getElementById('final-amount').textContent;
+    const cleanedTerimaBersih = terimaBersihValue.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    const loanAmount = parseFloat(cleanedTerimaBersih);
 
-    const isFormValid = loanAmount && startMonth && startYear && interestType && loanDuration && annualInterest;
+    // const loanAmount = document.getElementById('plafon-pengajuan').value;
+    // const startMonth = document.getElementById('startMonth').value;
+    // const startYear = document.getElementById('startYear').value;
+    // const interestType = document.getElementById('interestType').value;
+    const loanDuration = document.getElementById('tenor').value;
+    const annualInterest = document.getElementById('anuitas-per-year').value;
+
+    // const isFormValid = loanAmount && startMonth && startYear && interestType && loanDuration && annualInterest;
+    const isFormValid = loanAmount && loanDuration && annualInterest;
 
     document.getElementById('calculateBtn').disabled = !isFormValid;
 }
@@ -574,17 +578,29 @@ let monthlyPayment = 0;
 let loanAmount = 0;
 let loanDuration = 0;
 let annualInterest = 0;
-let interestType = '';
+let interestType = 'anuitas';
 
 function calculateLoan() {
-    loanAmount = parseFloat(document.getElementById('loanAmount').value.replace(/\./g, ''));
-    loanDuration = parseInt(document.getElementById('loanDuration').value);
-    annualInterest = parseFloat(document.getElementById('annualInterest').value);
-    interestType = document.getElementById('interestType').value;
-    const startMonth = parseInt(document.getElementById('startMonth').value) - 1;
-    const startYear = parseInt(document.getElementById('startYear').value);
+    const terimaBersihValue = document.getElementById('final-amount').textContent;
+    const cleanedTerimaBersih = terimaBersihValue.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    loanAmount = parseFloat(cleanedTerimaBersih);
 
-    const monthlyInterestRate = (annualInterest / 100) / 12;
+    const totalAngsuranValue = document.getElementById('total-angsuran').textContent;
+    const cleanedTotalAngsuran = totalAngsuranValue.replace(': Rp ', '').replace(/\./g, '').replace(',', '.');
+    let angsuran = parseFloat(cleanedTotalAngsuran);
+
+    loanDuration = parseInt(document.getElementById('tenor').value);
+    annualInterest = parseFloat(document.getElementById('anuitas-per-year').value);
+    // interestType = document.getElementById('interestType').value;
+
+    const today = new Date();
+    const startMonth = today.getMonth();
+    const startYear = today.getFullYear();
+
+    
+
+    // const monthlyInterestRate = (annualInterest / 100) / 12;
+    const monthlyInterestRate = (annualInterest/12) / 100;
     let balance = loanAmount;
     let totalInterest = 0;
     let totalPrincipal = 0;
@@ -633,7 +649,8 @@ function calculateLoan() {
 
         totalInterest += interestPayment;
         totalPrincipal += principalPayment;
-        totalPayment += roundedMonthly;
+        // totalPayment += roundedMonthly;
+        totalPayment += angsuran;
 
         const paymentDate = new Date(startYear, startMonth + i, 1);
         const period = paymentDate.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
@@ -645,10 +662,10 @@ function calculateLoan() {
                     <td>${period}</td>
                     <td>${roundedInterest}</td>
                     <td>${roundedPrincipal}</td>
-                    <td>${roundedMonthly.toLocaleString('id-ID')}</td>
+                    <td>${angsuran.toLocaleString('id-ID')}</td>
                     <td>${roundedBalance}</td>
                 </tr>`;
-        loanResult.push([period, roundedInterest, roundedPrincipal, roundedMonthly.toLocaleString('id-ID'), roundedBalance]);
+        loanResult.push([period, roundedInterest, roundedPrincipal, angsuran.toLocaleString('id-ID'), roundedBalance]);
     }
 
     html += `<tr>
