@@ -120,15 +120,25 @@
         </div>
         <hr>
         <div class="form-group row">
+            <label class="col-sm-3 col-form-label form-label" for="anuitas-per-year">Bunga </label>
+            <div class="input-group col-sm-5 col-form-label form-label">
+                <input type="text" class="form-control" id="anuitas-per-year" required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">% FLAT ANUITAS PERTAHUN</span>
+                </div>
+            </div>
+            <label class="col-sm-4 col-form-label form-label" id="anuitas-per-month">0% FLAT ANUITAS PERBULAN</label>
+
             <label for="maksimal-tenor" class="col-sm-2 col-form-label form-label">Maksimal Tenor</label>
             <label id="maksimal-tenor"class="col-sm-4 col-form-label form-label">: 0 Bulan</label>
-
 
             <label for="max-plafon" class="col-sm-2 col-form-label form-label">Maksimal Plafon</label>
             <label id="max-plafon" class="col-sm-4 col-form-label form-label">: Rp 0</label>
         
             <label for="tenor" class="col-sm-2 col-form-label form-label">Tenor</label>
-            <label id="tenor"class="col-sm-4 col-form-label form-label">: 72</label>
+            <div class="input-group col-sm-4 col-form-label form-label">
+                <input type="text" class="form-control" id="tenor" placeholder="Masukkan Tenor" required>
+            </div>
 
 
             <label for="plafon-pengajuan" class="col-sm-2 col-form-label form-label">Plafon Pengajuan</label>
@@ -141,11 +151,6 @@
         </div>
         <hr>
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label form-label">Bunga </label>
-            <label class="col-sm-4 col-form-label form-label">16.00% FLAT ANUITAS PERTAHUN</label>
-            <label class="col-sm-4 col-form-label form-label">1.333% FLAT ANUITAS PERBULAN</label>
-
-
             <label class="col-sm-4 col-form-label form-label" for="tata-laksana">Tata Laksana</label>
             <div class="input-group col-sm-4 col-form-label form-label">
                 <input type="text" class="form-control" id="tata-laksana" placeholder="Masukkan Tata Laksana" required>
@@ -311,11 +316,13 @@
 
 <script>
 // document.getElementById('loanAmount').addEventListener('input', formatInput);
+
 document.getElementById('gaji').addEventListener('input', formatInput);
 document.getElementById('flagging').addEventListener('input', formatInput);
 document.getElementById('takeover').addEventListener('input', formatInput);
 document.getElementById('tanggal-lahir').addEventListener('change', calculateAge);
-document.getElementById('gaji').addEventListener('input', calculateMaxPlafon);
+document.getElementById('anuitas-per-year').addEventListener('input', calculateFlatAnuitasPerMonth);
+document.getElementById('tenor').addEventListener('input', calculateMaxPlafon);
 document.getElementById('plafon-pengajuan').addEventListener('input', formatInput);
 document.getElementById('plafon-pengajuan').addEventListener('input', calculateAdminAngsuran);
 document.getElementById('plafon-pengajuan').addEventListener('input', calculateAngsuran);
@@ -369,15 +376,23 @@ function calculateAge() {
     }
 }
 
-function calculateMaxPlafon() {
-    const flatAnuitasPerYear = 16;
+function calculateFlatAnuitasPerMonth() {
+    const flatAnuitasPerYear = parseFloat(document.getElementById('anuitas-per-year').value.replace(/\./g, '').replace(',', '.'));
     const flatAnuitasPerMonth = (flatAnuitasPerYear/12) / 100;
-    const tenor = 72;
+
+    const formattedFlatAnuitasPerMonth = (flatAnuitasPerMonth * 100).toFixed(3);
+    document.getElementById('anuitas-per-month').textContent = ` ${formattedFlatAnuitasPerMonth} % FLAT ANUITAS PERBULAN`;
+}
+
+function calculateMaxPlafon() {
+    const flatAnuitasPerYear = parseFloat(document.getElementById('anuitas-per-year').value.replace(/\./g, '').replace(',', '.'));
+    const flatAnuitasPerMonth = (flatAnuitasPerYear/12) / 100;
+    const tenorValue = parseInt(document.getElementById('tenor').value);
 
     const salary = parseInt(document.getElementById('gaji').value.replace(/\./g, ''), 10);
     const maxAngsuranEPOT = salary * (90/100);
     const maxAngsuran = maxAngsuranEPOT - (0.4/100) * 37500000;
-    const maxPlafon = Math.floor(maxAngsuran / (tenor * flatAnuitasPerMonth + 1) * tenor / 10000 ) * 10000;
+    const maxPlafon = Math.floor(maxAngsuran / (tenorValue * flatAnuitasPerMonth + 1) * tenorValue / 10000 ) * 10000;
     const flooredMaxPlafon = Math.floor(maxPlafon / 100000) * 100000;
     const formattedMaxPlafon = flooredMaxPlafon.toLocaleString('id-ID');
 
@@ -477,11 +492,12 @@ function calculateAdminAngsuran() {
 
 function calculateAngsuran() {
     const plafonPengajuan = parseInt(document.getElementById('plafon-pengajuan').value.replace(/\./g, ''), 10);
-    const flatAnuitasPerYear = 16;
+    const flatAnuitasPerYear = parseFloat(document.getElementById('anuitas-per-year').value.replace(/\./g, '').replace(',', '.'));
     const flatAnuitasPerMonth = (flatAnuitasPerYear/12) / 100;
-    const tenor = 72;
+    // const tenor = 72;
+    const tenorValue = parseInt(document.getElementById('tenor').value);
 
-    const result = Math.round((plafonPengajuan / tenor) + (plafonPengajuan * flatAnuitasPerMonth));
+    const result = Math.round((plafonPengajuan / tenorValue) + (plafonPengajuan * flatAnuitasPerMonth));
     const formattedAngsuran = result.toLocaleString('id-ID');
 
     document.getElementById('result-angsuran').textContent = `: Rp ${formattedAngsuran}`;
@@ -505,7 +521,8 @@ function calculateTotalAngsuran() {
 function calculateTanggalLunas() {
     const startDate = new Date();
     const endDate = new Date();
-    endDate.setMonth(startDate.getMonth() + 72);
+    const tenorValue = parseInt(document.getElementById('tenor').value);
+    endDate.setMonth(startDate.getMonth() + tenorValue);
 
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
     const formattedDate = endDate.toLocaleDateString('id-ID', options);
